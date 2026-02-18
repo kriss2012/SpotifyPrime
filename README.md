@@ -1,5 +1,7 @@
 # 🎵 My Spotify Clone (Android - Media3 + ExoPlayer)
 
+Downlode From Repo Use this Repo For The Songs Downlode https://github.com/kriss2012/spotify/tree/main/songs
+
 A modern Spotify-style music player built using **Kotlin**, **Jetpack Compose**, and **Media3 (ExoPlayer)**.
 
 This app loads songs from device storage and plays them in the background using a proper MediaSessionService.
