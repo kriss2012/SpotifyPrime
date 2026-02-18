@@ -1,3 +1,193 @@
+# 🎵 My Spotify Clone (Android - Media3 + ExoPlayer)
+
+A modern Spotify-style music player built using **Kotlin**, **Jetpack Compose**, and **Media3 (ExoPlayer)**.
+
+This app loads songs from device storage and plays them in the background using a proper MediaSessionService.
+
+
+## 🚀 Features
+
+- 🎶 Load songs from device (MediaStore)
+- ▶️ Play / Pause / Resume audio
+- ⏭️ Next / Previous support
+- 🔊 Proper Audio Focus handling
+- 🎧 Auto pause on headphone unplug
+- 🔔 Background playback with notification
+- 📱 Modern Jetpack Compose UI
+- ⚡ Media3 + ExoPlayer powered playback engine
+
+---
+
+## 🏗️ Tech Stack
+
+- Kotlin
+- Jetpack Compose
+- Media3 (ExoPlayer)
+- MediaSessionService
+- Android 13+ compatible
+- Material 3 UI
+
+---
+
+## 📂 Project Structure
+
+```
+
+com.example.myapplication
+│
+├── PlaybackService.kt      # Background playback service
+├── MainActivity.kt         # Entry point
+├── MusicViewModel.kt       # Handles playback logic
+├── Song.kt                 # Data model
+├── ui/                     # Compose UI screens
+
+````
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone Project
+
+```bash
+git clone <your-repository-url>
+````
+
+Open in Android Studio.
+
+---
+
+### 2️⃣ Required Permissions
+
+Add this in `AndroidManifest.xml`:
+
+For Android 13+:
+
+```xml
+<uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+```
+
+For Android 12 and below:
+
+```xml
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+```
+
+---
+
+### 3️⃣ Make Sure MediaItem Is Created Correctly
+
+Playback MUST use:
+
+```kotlin
+val mediaItem = MediaItem.fromUri(song.uri)
+
+controller.setMediaItem(mediaItem)
+controller.prepare()
+controller.play()
+```
+
+❌ Do NOT use:
+
+```kotlin
+MediaItem.Builder().setMediaId(...)
+```
+
+---
+
+## 🎧 Playback Service
+
+Playback runs inside:
+
+```
+PlaybackService : MediaSessionService
+```
+
+Key features:
+
+* Audio Focus handling
+* Background playback
+* Notification channel
+* Auto stop when not playing
+
+---
+
+## 🛠️ Common Issues & Fix
+
+### ❌ Songs load but don't play
+
+Cause:
+
+* Wrong URI passed to ExoPlayer
+* MediaItem built using mediaId instead of URI
+
+Fix:
+
+* Always use `MediaItem.fromUri()`
+* Do not override URI in MediaSession callback
+
+---
+
+### ❌ No sound on Android 13+
+
+Make sure:
+
+* Runtime permission is granted
+* Audio file URI is valid
+* Device volume is not muted
+
+---
+
+## 🧠 How Playback Works
+
+1. Songs loaded from MediaStore
+2. User taps play
+3. MediaItem created using real URI
+4. Controller sends item to PlaybackService
+5. ExoPlayer prepares
+6. Audio plays in background
+
+---
+
+## 📸 Future Improvements
+
+* 🎨 Dynamic theme colors
+* 📀 Album artwork support
+* 📑 Playlist creation
+* 🔍 Search functionality
+* 🌙 Dark mode improvements
+* 📡 Streaming support
+
+---
+
+## 📦 Build APK
+
+Inside project folder:
+
+```bash
+./gradlew assembleDebug
+```
+
+APK location:
+
+```
+app/build/outputs/apk/debug/app-debug.apk
+```
+
+---
+
+## 👨‍💻 Author
+
+Krishna Patil
+
+---
+
+## 📜 License
+
+This project is for educational purposes only.
+
+Not affiliated with Spotify.
+
 # Offline Music Player for Android
 
 This is a simple yet powerful offline music player application for Android, built with modern, native technologies. The app scans your device's local storage for audio files, organizes them by folder, and provides a clean, intuitive interface for playback.
